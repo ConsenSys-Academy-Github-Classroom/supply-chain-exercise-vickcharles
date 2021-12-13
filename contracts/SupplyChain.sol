@@ -53,18 +53,11 @@ contract SupplyChain {
     _;
   }
 
-
-  modifier paidEnough(uint _price) { 
-    require(msg.value >= _price); 
-    _;
-  }
-
   modifier checkValue(uint _sku) {
     uint _price = items[_sku].price;
     uint amountToRefund = msg.value - _price;
     items[_sku].buyer.transfer(amountToRefund);
     _;
-
   }
 
   // For each of the following modifiers, use what you learned about modifiers
@@ -74,7 +67,6 @@ contract SupplyChain {
   // value, so checking that Item.State == ForSale is not sufficient to check
   // that an Item is for sale. Hint: What item properties will be non-zero when
   // an Item has been added?
-
   modifier forSale(uint _sku) {
     require(items[_sku].state == State.ForSale, "this item is not for sale");
     _;
